@@ -1,0 +1,26 @@
+{
+  "name": "apollo-vue-training",
+  "version": "1.0.0",
+  "description": "A training repo to learn Apollo Vue",
+  "scripts": {
+    "start": "npx ts-node src/index.ts"
+  },
+  "main": "index.ts",
+  "repository": "https://github.com/SimpleNexus/apollo-vue-training.git",
+  "author": "Bryan Müller <bmuller@simplenexus.com>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "@types/graphql": "^14.2.0",
+    "apollo-server": "^2.4.8",
+    "graphql": "^14.2.1",
+    "graphql-tools": "^4.0.4"
+  },
+  "devDependencies": {
+    "prettier": "^1.17.0",
+    "ts-node": "^8.1.0",
+    "tslint": "^5.16.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.4.5"
+  }
+}
