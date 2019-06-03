@@ -43,7 +43,7 @@
     </div>
 
     <ApolloMutation
-      :mutation="updateLoanMutation"
+      :mutation="updateLoan"
       :variables="updateLoanMutationVars"
     >
       <button
