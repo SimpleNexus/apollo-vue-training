@@ -4,51 +4,107 @@
     <div class="input-block">
       <label>
         Id of loan to update:
-        <input name="loanId" type="number" v-model="id" />
+        <input disabled name="loanId" type="number" v-model="selectedLoan.id" />
       </label>
     </div>
     <div class="input-block">
       <label>
         Loan Number:
-        <input name="loanNumber" type="number" v-model="number" />
+        <input
+          name="loanNumber"
+          type="number"
+          v-model.number="selectedLoan.number"
+        />
       </label>
     </div>
     <div class="input-block">
       <label>
         Loan Amount:
-        <input name="loanAmount" type="number" v-model="amount" />
+        <input
+          name="loanAmount"
+          type="number"
+          v-model.number="selectedLoan.amount"
+        />
       </label>
     </div>
     <div class="input-block">
       <label>
         Loan Address:
-        <input name="loanAmount" type="text" v-model="address" />
+        <input name="loanAmount" type="text" v-model="selectedLoan.address" />
       </label>
     </div>
     <div class="input-block">
       <label>
         Loan Type:
-        <select v-model="loanType">
+        <select v-model="selectedLoan.loanType">
           <option v-for="option in options">{{ option }}</option>
         </select>
       </label>
     </div>
-    <button class="updateBtn">Update Loan</button>
+
+    <ApolloMutation
+      :mutation="updateLoanMutation"
+      :variables="updateLoanMutationVars"
+    >
+      <button
+        :disabled="!loanSelected"
+        slot-scope="{ mutate }"
+        class="updateBtn"
+        @click="mutate"
+      >
+        Update Loan
+      </button>
+    </ApolloMutation>
   </div>
 </template>
 
 <script>
+import gql from "graphql-tag";
 export default {
   name: "updateLoan",
   data() {
     return {
-      id: 0,
-      amount: 0,
-      number: 0,
-      address: "",
-      type: "",
-      options: ["CONVENTIONAL", "FHA", "USDA", "VA"]
+      options: ["CONVENTIONAL", "FHA", "USDA", "VA"],
+      updateLoanMutation: gql`
+        mutation updateLoan($id: ID!, $loan: LoanUpdate!) {
+          updateLoan(id: $id, loan: $loan) {
+            id
+            number
+            address
+            loanType
+            amount
+          }
+        }
+      `
     };
+  },
+  computed: {
+    updateLoanMutationVars() {
+      const { id, __typename, ...loan } = this.selectedLoan;
+      return { id, loan };
+    }
+  },
+  apollo: {
+    loanSelected: {
+      query: gql`
+        {
+          loanSelected @client
+        }
+      `
+    },
+    selectedLoan: {
+      query: gql`
+        {
+          selectedLoan @client {
+            id
+            amount
+            address
+            number
+            loanType
+          }
+        }
+      `
+    }
   }
 };
 </script>
@@ -73,5 +129,10 @@ export default {
 
 button:focus {
   outline: none;
+}
+
+button:disabled {
+  background-color: #c4c4c4;
+  color: #ffffff;
 }
 </style>

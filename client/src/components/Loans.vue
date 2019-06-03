@@ -13,7 +13,11 @@
           <div>Amount: {{ loan.amount }}</div>
           <div>Address: {{ loan.address }}</div>
           <div>Type: {{ loan.loanType }}</div>
-          <button class="selectBtn">Select</button>
+          <ApolloMutation :mutation="selectLoanMutation" :variables="{ loan }">
+            <button slot-scope="{ mutate }" class="selectBtn" @click="mutate">
+              Select
+            </button>
+          </ApolloMutation>
         </div>
       </div>
     </div>
@@ -26,6 +30,17 @@ export default {
   name: "HelloWorld",
   props: {
     name: String
+  },
+  data() {
+    return {
+      selectLoanMutation: gql`
+        mutation selectLoanMutation($loan: SelectLoan) {
+          selectLoan(loan: $loan) @client {
+            id
+          }
+        }
+      `
+    };
   },
   apollo: {
     loanOfficers: {
