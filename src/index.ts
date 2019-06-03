@@ -1,10 +1,9 @@
-import {ApolloServer} from 'apollo-server';
-import {typeDefs} from './typeDefs'
-import {resolvers} from './resolvers'
+import { ApolloServer } from "apollo-server";
+import { resolvers } from "./resolvers";
+import { typeDefs } from "./typeDefs";
 
+const server = new ApolloServer({ typeDefs, resolvers });
 
-const server = new ApolloServer({typeDefs, resolvers});
-
-server.listen().then(({url}: {url: string}) => {
-    console.log(`Listening on ${url}`);
-})
+server.listen().then(({ url }: { url: string }) => {
+  console.log(`Listening on ${url}`);
+});

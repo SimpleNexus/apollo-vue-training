@@ -1,9 +1,11 @@
-type Company = {
-    id: number
-    name: string
+interface Company {
+  id: number;
+  name: string;
 }
 
-export const companies: Array<Company> = [{
+export const companies: Company[] = [
+  {
     id: 1,
     name: "Testington United"
-}]
+  }
+];
