@@ -1,5 +1,6 @@
 import { GraphQLScalarType } from "graphql";
 import { ResolverFn } from "graphql-tools/dist/stitching/makeRemoteExecutableSchema";
+import { ApolloError } from "apollo-server";
 
 import { appUsers } from "./appUsers";
 import { companies } from "./companies";
@@ -68,6 +69,20 @@ export const resolvers: ResolverMap = {
     }
   },
   Mutation: {
-    addLoan(_, { loan }) {}
+    addLoan(_, { loan }) {
+      const last = loans[loans.length - 1];
+      loan.id = last.id + 1;
+      loans.push(loan);
+      return loan;
+    },
+    updateLoan(_, { id, loan }) {
+      const loanIndex = loans.findIndex(l => l.id == id);
+      if (loanIndex > -1) {
+        loans[loanIndex] = { ...loans[loanIndex], ...loan };
+        return loans[loanIndex];
+      } else {
+        return new ApolloError("Could not find loan");
+      }
+    }
   }
 };

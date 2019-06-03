@@ -36,10 +36,18 @@ export const typeDefs = gql`
     VA
   }
 
-  input newLoan {
+  input NewLoan {
     appUserId: ID!
     amount: Float
     loanType: LoanType!
+    number: Int
+    address: String
+  }
+
+  input LoanUpdate {
+    appUserId: ID
+    amount: Float
+    loanType: LoanType
     number: Int
     address: String
   }
@@ -54,6 +62,7 @@ export const typeDefs = gql`
   }
 
   type Mutation {
-    addLoan(loan: newLoan!): Loan
+    addLoan(loan: NewLoan!): Loan
+    updateLoan(id: ID!, loan: LoanUpdate!): Loan
   }
 `;
