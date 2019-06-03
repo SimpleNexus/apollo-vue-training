@@ -59,23 +59,17 @@
 </template>
 
 <script>
-import gql from "graphql-tag";
+import {
+  updateLoan,
+  loanSelected,
+  selectedLoan
+} from "../apollo/queries.graphql";
 export default {
   name: "updateLoan",
   data() {
     return {
       options: ["CONVENTIONAL", "FHA", "USDA", "VA"],
-      updateLoanMutation: gql`
-        mutation updateLoan($id: ID!, $loan: LoanUpdate!) {
-          updateLoan(id: $id, loan: $loan) {
-            id
-            number
-            address
-            loanType
-            amount
-          }
-        }
-      `
+      updateLoan
     };
   },
   computed: {
@@ -86,24 +80,10 @@ export default {
   },
   apollo: {
     loanSelected: {
-      query: gql`
-        {
-          loanSelected @client
-        }
-      `
+      query: loanSelected
     },
     selectedLoan: {
-      query: gql`
-        {
-          selectedLoan @client {
-            id
-            amount
-            address
-            number
-            loanType
-          }
-        }
-      `
+      query: selectedLoan
     }
   }
 };
@@ -112,8 +92,6 @@ export default {
 <style scoped>
 .loanUpdate {
   text-align: left;
-  position: fixed;
-  right: 65px;
 }
 
 .input-block {

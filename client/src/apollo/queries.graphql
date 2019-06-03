@@ -1,0 +1,43 @@
+fragment loanFragment on Loan {
+  id
+  number
+  address
+  loanType
+  amount
+}
+
+query loanOfficers {
+  loanOfficers {
+    id
+    name
+    appUsers {
+      id
+      name
+      loans {
+        ...loanFragment
+      }
+    }
+  }
+}
+
+query loanSelected {
+  loanSelected @client
+}
+
+query selectedLoan @client {
+  selectedLoan {
+    ...loanFragment
+  }
+}
+
+mutation selectLoanMutation($loan: SelectLoan) {
+  selectLoan(loan: $loan) @client {
+    id
+  }
+}
+
+mutation updateLoan($id: ID!, $loan: LoanUpdate!) {
+          updateLoan(id: $id, loan: $loan) {
+            ...loanFragment
+          }
+        }

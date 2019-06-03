@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import gql from "graphql-tag";
+import { selectLoanMutation, loanOfficers } from "../apollo/queries.graphql";
 export default {
   name: "HelloWorld",
   props: {
@@ -33,36 +33,12 @@ export default {
   },
   data() {
     return {
-      selectLoanMutation: gql`
-        mutation selectLoanMutation($loan: SelectLoan) {
-          selectLoan(loan: $loan) @client {
-            id
-          }
-        }
-      `
+      selectLoanMutation
     };
   },
   apollo: {
     loanOfficers: {
-      query: gql`
-        {
-          loanOfficers {
-            id
-            name
-            appUsers {
-              id
-              name
-              loans {
-                id
-                number
-                address
-                loanType
-                amount
-              }
-            }
-          }
-        }
-      `
+      query: loanOfficers
     }
   }
 };

@@ -1,7 +1,7 @@
 import Vue from "vue";
 import App from "./App.vue";
 import VueApollo from "vue-apollo";
-import { apolloClient } from "./apolloClient";
+import { apolloClient } from "./apollo/apolloClient";
 
 Vue.config.productionTip = false;
 Vue.config.devtools = true;
