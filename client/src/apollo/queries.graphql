@@ -37,7 +37,7 @@ mutation selectLoanMutation($loan: SelectLoan) {
 }
 
 mutation updateLoan($id: ID!, $loan: LoanUpdate!) {
-          updateLoan(id: $id, loan: $loan) {
-            ...loanFragment
-          }
-        }
+  updateLoan(id: $id, loan: $loan) {
+      ...loanFragment
+  }
+}
