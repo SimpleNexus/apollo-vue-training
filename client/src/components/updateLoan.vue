@@ -37,15 +37,12 @@
       <label>
         Loan Type:
         <select v-model="selectedLoan.loanType">
-          <option v-for="option in options">{{ option }}</option>
+          <option v-for="option in options" :key="option">{{ option }}</option>
         </select>
       </label>
     </div>
 
-    <ApolloMutation
-      :mutation="updateLoan"
-      :variables="updateLoanMutationVars"
-    >
+    <ApolloMutation :mutation="updateLoan" :variables="updateLoanMutationVars">
       <button
         :disabled="!loanSelected"
         slot-scope="{ mutate }"
@@ -74,7 +71,7 @@ export default {
   },
   computed: {
     updateLoanMutationVars() {
-      const { id, __typename, ...loan } = this.selectedLoan;
+      const { id, ...loan } = this.selectedLoan;
       return { id, loan };
     }
   },

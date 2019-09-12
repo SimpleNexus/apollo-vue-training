@@ -1,13 +1,13 @@
 <template>
   <div class="loans">
     <h1>{{ name }}</h1>
-    <div class="los" v-for="lo in loanOfficers">
+    <div class="los" v-for="lo in loanOfficers" :key="lo.name">
       <h2>{{ lo.name }}</h2>
       <h3>App Users</h3>
-      <div v-for="au in lo.appUsers">
+      <div v-for="au in lo.appUsers" :key="au.name">
         <h4>{{ au.name }}</h4>
         <h5>Loans</h5>
-        <div v-for="loan in au.loans">
+        <div v-for="loan in au.loans" :key="loan.id">
           <div>Id: {{ loan.id }}</div>
           <div>Number: {{ loan.number }}</div>
           <div>Amount: {{ loan.amount }}</div>
