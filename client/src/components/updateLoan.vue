@@ -42,7 +42,10 @@
       </label>
     </div>
 
-    <ApolloMutation :mutation="updateLoan" :variables="updateLoanMutationVars">
+    <ApolloMutation
+      :mutation="updateLoan"
+      :variables="updateLoanMutationVars"
+    >
       <button
         :disabled="!loanSelected"
         slot-scope="{ mutate }"
